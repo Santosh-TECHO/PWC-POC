@@ -17,13 +17,13 @@ export class DashboardComponent implements OnInit {
   multi: any[];
   multidata: any;
   visible: Boolean = false;
-  view: any[] = [700, 300];
+  view: any[] = [1200, 300];
   viewPie: any[] = [400, 350];
 
   // options
   showXAxis = true;
   showYAxis = true;
-  gradient = false;
+  gradient = true;
   showLegend = true;
   showXAxisLabel = true;
   xAxisLabel = 'Time';
@@ -40,6 +40,21 @@ export class DashboardComponent implements OnInit {
 
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
+  colorSchemeTemperatureChart = {
+    domain: ['#a95963']
+  };
+  
+  colorSchemeOilTemperatureChart = {
+    domain: ['#7aa3e5']
+  };
+
+  colorSchemeMoistureChart = {
+    domain: ['#a27ea8']
+  };
+
+  colorSchemeVibrationChart = {
+    domain: ['#ffa500']
   };
 
   constructor(private _dashboardServiceInstance: DashboardService) {
@@ -130,14 +145,20 @@ export class DashboardComponent implements OnInit {
                               console.log(JSON.stringify(vibrationChartResponse.payload.series.data[i]) + "------helllo-------------");
                               dataHave.push({
                                 name: new Date(vibrationChartResponse.payload.series.data[i].name),
-                                value: 0
-                              })
+                                value: 3
+                              });
                             } else if (vibrationChartResponse.payload.series.data[i].value === 'normal') {
                               console.log(JSON.stringify(vibrationChartResponse.payload.series.data[i]) + "------helllo-------------");
                               dataHave.push({
                                 name: new Date(vibrationChartResponse.payload.series.data[i].name),
+                                value: 0
+                              });
+                            } else if (vibrationChartResponse.payload.series.data[i].value === 'warning') {
+                              console.log(JSON.stringify(vibrationChartResponse.payload.series.data[i]) + "------helllo-------------");
+                              dataHave.push({
+                                name: new Date(vibrationChartResponse.payload.series.data[i].name),
                                 value: 1
-                              })
+                              });
                             }
 
                           }

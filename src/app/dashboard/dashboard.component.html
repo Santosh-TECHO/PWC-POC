@@ -28,7 +28,7 @@
                 </md-card-header>
                 <md-card-content>
                     <div class="chart-section">
-                        <ngx-charts-area-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                        <ngx-charts-area-chart [view]="view" [scheme]="colorSchemeTemperatureChart" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
                             [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)">
                         </ngx-charts-area-chart>
                     </div>
@@ -53,25 +53,25 @@
                 </md-card-header>
                 <md-card-content>
                     <div class="chart-section">
-                        <ngx-charts-area-chart [view]="view" [scheme]="colorScheme" [results]="multiple" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                        <ngx-charts-area-chart [view]="view" [scheme]="colorSchemeOilTemperatureChart" [results]="multiple" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
                             [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)">
                         </ngx-charts-area-chart>
                     </div>
                 </md-card-content>
             </md-card>
 
-            <!-- <md-card id="vibration-chart">
+            <md-card id="vibration-chart">
                 <md-card-header>
                     Vibration
                 </md-card-header>
                 <md-card-content>
                     <div class="chart-section">
-                        <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="single" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                        <ngx-charts-bar-vertical [view]="view" [scheme]="colorSchemeVibrationChart" [results]="single" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
                             [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
                         </ngx-charts-bar-vertical>
                     </div>
                 </md-card-content>
-            </md-card> -->
+            </md-card>
 
             <md-card id="oil-mois-chart">
                 <md-card-header>
@@ -79,14 +79,12 @@
                 </md-card-header>
                 <md-card-content>
                     <div class="chart-section">
-                        <ngx-charts-area-chart [view]="view" [scheme]="colorScheme" [results]="multidata" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                        <ngx-charts-area-chart [view]="view" [scheme]="colorSchemeMoistureChart" [results]="multidata" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
                             [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)">
                         </ngx-charts-area-chart>
                     </div>
                 </md-card-content>
             </md-card>
-
-
         </div>
     </div>
 </div>
