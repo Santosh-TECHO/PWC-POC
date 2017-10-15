@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#cdk-overlay-0,
+.cdk-overlay-pane {
+    bottom: -62px;
+}
+
+.mat-select-value,
+.mat-select-placeholder {
+    color: #fff;
+}
+
+.mat-select-underline {
+    background: #fff;
+}
+
+.mat-card-header-text {
+    margin: 0;
+}

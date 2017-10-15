@@ -1,0 +1,24 @@
+.side-bar-container {
+    background: #2b3f54;
+    height: 100%;
+    color: #fff;
+    padding: 1px 0;
+}
+
+.side-bar-content {
+    background: #314354;
+    margin: 10px 0;
+    padding: 5px 20px;
+    box-shadow: -2px 3px 5px #202020;
+    display: flex;
+    align-items: center;
+}
+
+.side-bar-content p {
+    margin-right: 10px;
+}
+
+.side-bar-content:hover {
+    background: orange;
+    transition: all .8s;
+}

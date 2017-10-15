@@ -1,0 +1,20 @@
+<div class="header-container">
+    <div class="logo-container">
+        <i class="material-icons" (click)="navMenu = !navMenu;">menu</i>
+        <img src="../../assets/images/pwc-logo.png">
+        <p>&nbsp;&nbsp;&nbsp;| Conditional Monitoring System</p>
+    </div>
+    <div class="nav-option-container">
+        <i class="material-icons">home</i>
+        <i class="material-icons">person</i>
+    </div>
+</div>
+<div [ngClass]="{'active': navMenu}" class="side-bar-container" (click)="navMenu = false;">
+    <div class="side-bar-content">
+        <p><i class="material-icons">dashboard</i></p>
+        <p>Dashboard</p>
+    </div>
+    <!-- <div class="side-bar-content">
+        <p>Predective Analysis</p>
+    </div> -->
+</div>
