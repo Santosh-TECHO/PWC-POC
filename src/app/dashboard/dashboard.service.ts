@@ -14,38 +14,38 @@ export class DashboardService extends CommonService {
   }
 
   temperatureService(): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/temperature?type=event&range=900';
+    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/temperature?type=event&range=1800';
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
-      .map(res =>res.json())
+      .map(res => res.json())
       .catch(this.handleError);
   }
   moistureService(): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/moisture?type=event&range=900';
+    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/moisture?type=event&range=1800';
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
-      .map(res =>res.json())
+      .map(res => res.json())
       .catch(this.handleError);
   }
   oilTemperatureService(): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/oil-temperature?type=event&range=900';
+    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/oil-temperature?type=event&range=1800';
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
-      .map(res =>res.json())
+      .map(res => res.json())
       .catch(this.handleError);
   }
   thresholdService(): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/threshold?range=900';
+    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/threshold?range=1800';
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
-      .map(res =>res.json())
+      .map(res => res.json())
       .catch(this.handleError);
   }
   vibrationService(): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/vibration?range=900';
+    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/vibration?range=1800';
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
-      .map(res =>res.json())
+      .map(res => res.json())
       .catch(this.handleError);
   }
 }
