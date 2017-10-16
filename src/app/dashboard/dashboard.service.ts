@@ -15,7 +15,7 @@ export class DashboardService extends CommonService {
 
   temperatureService(range, type): Observable<any> {
     if (range === undefined || type === undefined) {
-      range = 3600;
+      range = 3700;
       type = 'event';
     }
     let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/temperature?type=' + type + '&range=' + range;
@@ -26,7 +26,7 @@ export class DashboardService extends CommonService {
   }
   moistureService(range, type): Observable<any> {
     if (range === undefined || type === undefined) {
-      range = 3600;
+      range = 3700;
       type = 'event';
     }
     let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/moisture?type=' + type + '&range=' + range;
@@ -37,7 +37,7 @@ export class DashboardService extends CommonService {
   }
   oilTemperatureService(range, type): Observable<any> {
     if (range === undefined || type === undefined) {
-      range = 3600;
+      range = 3700;
       type = 'event';
     }
     let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/oil-temperature?type=' + type + '&range=' + range;
@@ -48,7 +48,7 @@ export class DashboardService extends CommonService {
   }
   thresholdService(range, type): Observable<any> {
     if (range === undefined || type === undefined) {
-      range = 86400;
+      range = 21600;
       type = 'normal';
     }
     let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/threshold?type=' + type + '&range=' + range;
@@ -59,7 +59,7 @@ export class DashboardService extends CommonService {
   }
   vibrationService(range, type): Observable<any> {
     if (range === undefined || type === undefined) {
-      range = 3600;
+      range = 3700;
       type = 'event';
     }
     let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/vibration?type=' + type + '&range=' + range;

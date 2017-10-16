@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit {
   };
 
   colorSchemeSystemChart = {
-    domain: ['#A10A28', '#5AA454', '#ffa500']
+    domain: ['#ffa500', '#A10A28', '#5AA454']
   };
 
   colorSchemeOilTemperatureChart = {
@@ -112,7 +112,7 @@ export class DashboardComponent implements OnInit {
         var dataHave = [];
         if (temperatureChartResponse.payload.series.data.length > 0) {
           let data = temperatureChartResponse.payload.series.data.length - 1;
-          for (let i = data-50; i <= data; i++) {
+          for (let i = 0; i <= data; i++) {
             dataHave.push({
               name: new Date(temperatureChartResponse.payload.series.data[i].name),
               value: temperatureChartResponse.payload.series.data[i].value
@@ -123,6 +123,9 @@ export class DashboardComponent implements OnInit {
           'name': temperatureChartResponse.payload.title.text,
           'series': dataHave
         }];
+        Object.assign(this, {
+          temperatureChartData
+        });
 
         // oilTemperatureService
         this._dashboardServiceInstance.oilTemperatureService(this.range, this.state)
@@ -141,6 +144,9 @@ export class DashboardComponent implements OnInit {
               'name': oiltemperatureChartResponse.payload.title.text,
               'series': dataHave
             }];
+            Object.assign(this, {
+              oiltemperatureChartData
+            });
 
             // moistureService
             this._dashboardServiceInstance.moistureService(this.range, this.state)
@@ -159,33 +165,26 @@ export class DashboardComponent implements OnInit {
                   'name': moistureChartResponse.payload.title.text,
                   'series': dataHave
                 }];
+                Object.assign(this, {
+                  moistureChartData
+                 });
 
                 // thresholdService
                 this._dashboardServiceInstance.thresholdService(this.range, this.state)
                   .subscribe((thresholdChartResponse) => {
-                    var dataHave = [];
+                    var thresholdChartData = [];
                     if (thresholdChartResponse.payload.series.data.length > 0) {
                       let data = thresholdChartResponse.payload.series.data.length - 1;
                       for (let i = 0; i <= data; i++) {
-                        if (thresholdChartResponse.payload.series.data[i].name === 'red') {
-                          dataHave.push({
-                            name: 'Critical',
-                            value: thresholdChartResponse.payload.series.data[i].value
-                          });
-                        } else if (thresholdChartResponse.payload.series.data[i].name === 'yellow') {
-                          dataHave.push({
-                            name: 'Warning',
-                            value: thresholdChartResponse.payload.series.data[i].value
-                          });
-                        } else if (thresholdChartResponse.payload.series.data[i].name === 'green') {
-                          dataHave.push({
-                            name: 'Normal',
-                            value: thresholdChartResponse.payload.series.data[i].value
-                          });
-                        }
+                        thresholdChartData.push({
+                          name: thresholdChartResponse.payload.series.data[i].name,
+                          value: thresholdChartResponse.payload.series.data[i].value
+                        });
                       }
                     }
-                    var thresholdChartData = dataHave;
+                    Object.assign(this, {
+                      thresholdChartData
+                    });
 
                     // vibrationService
                     this._dashboardServiceInstance.vibrationService(this.range, this.state)
@@ -195,7 +194,7 @@ export class DashboardComponent implements OnInit {
                         console.log('Length :: ' + vibrationChartResponse.payload.series.data.length);
                         if (vibrationChartResponse.payload.series.data.length > 0) {
                           let data = vibrationChartResponse.payload.series.data.length - 1;
-                          for (let i = data-50; i <= data; i++) {
+                          for (let i = 0; i <= data; i++) {
                             if (vibrationChartResponse.payload.series.data[i].value === 'abnormal') {
                               dataHave.push({
                                 name: new Date(vibrationChartResponse.payload.series.data[i].name),
@@ -222,10 +221,6 @@ export class DashboardComponent implements OnInit {
                         // console.log('vibrationChartData :: ' + JSON.stringify(vibrationChartData));
                         // bind data to chart
                         Object.assign(this, {
-                          temperatureChartData,
-                          oiltemperatureChartData,
-                          moistureChartData,
-                          thresholdChartData,
                           vibrationChartData
                         });
                       });
