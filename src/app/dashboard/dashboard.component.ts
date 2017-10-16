@@ -99,8 +99,8 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit() {
-    this.range = '21600';
-    this.state = 'event';
+    this.range = '3600';
+    this.state = 'normal';
     this.fetchData();
   }
 
@@ -108,13 +108,13 @@ export class DashboardComponent implements OnInit {
     // temperatureService
     this._dashboardServiceInstance.temperatureService(this.range, this.state)
       .subscribe((temperatureChartResponse) => {
-        let dataHave = [];
+        let dataSet = [];
         console.log('Length :: ' + temperatureChartResponse.payload.series.data.length);
         console.log('temperatureChartResponse :: ' + JSON.stringify(temperatureChartResponse));
         if (temperatureChartResponse.payload.series.data.length > 0) {
           let data = temperatureChartResponse.payload.series.data.length - 1;
           for (let i = 0; i <= data; i++) {
-            dataHave.push({
+            dataSet.push({
               name: new Date(temperatureChartResponse.payload.series.data[i].name),
               value: temperatureChartResponse.payload.series.data[i].value
             });
@@ -122,7 +122,7 @@ export class DashboardComponent implements OnInit {
         }
         var temperatureChartData = [{
           'name': temperatureChartResponse.payload.title.text,
-          'series': dataHave
+          'series': dataSet
         }];
         console.log('temperatureChartData ::: ' + JSON.stringify(temperatureChartData));
         Object.assign(this, { temperatureChartData });
@@ -133,11 +133,11 @@ export class DashboardComponent implements OnInit {
     // oilTemperatureService
     this._dashboardServiceInstance.oilTemperatureService(this.range, this.state)
       .subscribe((oiltemperatureChartResponse) => {
-        let dataHave = [];
+        let dataSet = [];
         if (oiltemperatureChartResponse.payload.series.data.length > 0) {
           let data = oiltemperatureChartResponse.payload.series.data.length - 1
           for (let i = 0; i <= data; i++) {
-            dataHave.push({
+            dataSet.push({
               name: new Date(oiltemperatureChartResponse.payload.series.data[i].name),
               value: oiltemperatureChartResponse.payload.series.data[i].value
             });
@@ -145,7 +145,7 @@ export class DashboardComponent implements OnInit {
         }
         var oiltemperatureChartData = [{
           'name': oiltemperatureChartResponse.payload.title.text,
-          'series': dataHave
+          'series': dataSet
         }];
         Object.assign(this, { oiltemperatureChartData });
       });
@@ -155,11 +155,11 @@ export class DashboardComponent implements OnInit {
     // moistureService
     this._dashboardServiceInstance.moistureService(this.range, this.state)
       .subscribe((moistureChartResponse) => {
-        let dataHave = [];
+        let dataSet = [];
         if (moistureChartResponse.payload.series.data.length > 0) {
           let data = moistureChartResponse.payload.series.data.length - 1;
           for (let i = 0; i <= data; i++) {
-            dataHave.push({
+            dataSet.push({
               name: new Date(moistureChartResponse.payload.series.data[i].name),
               value: moistureChartResponse.payload.series.data[i].value
             });
@@ -167,7 +167,7 @@ export class DashboardComponent implements OnInit {
         }
         var moistureChartData = [{
           'name': moistureChartResponse.payload.title.text,
-          'series': dataHave
+          'series': dataSet
         }];
         Object.assign(this, { moistureChartData });
       });
@@ -178,17 +178,17 @@ export class DashboardComponent implements OnInit {
     this._dashboardServiceInstance.thresholdService(this.range, this.state)
       .subscribe((thresholdChartResponse) => {
         console.log('thresholdChartResponse :: ' + JSON.stringify(thresholdChartResponse));
-        let dataHave = [];
+        let dataSet = [];
         if (thresholdChartResponse.payload.series.data.length > 0) {
           let data = thresholdChartResponse.payload.series.data.length - 1;
           for (let i = 0; i <= data; i++) {
-            dataHave.push({
+            dataSet.push({
               name: thresholdChartResponse.payload.series.data[i].name,
               value: thresholdChartResponse.payload.series.data[i].value
             });
           }
         }
-        var thresholdChartData = dataHave;
+        var thresholdChartData = dataSet;
         Object.assign(this, { thresholdChartData });
       });
   }
@@ -198,30 +198,33 @@ export class DashboardComponent implements OnInit {
     this._dashboardServiceInstance.vibrationService(this.range, this.state)
       .subscribe((vibrationChartResponse) => {
         this.visible = true;
-        let dataHave = [];
+        let dataSet = [];
         console.log('Length :: ' + vibrationChartResponse.payload.series.data.length);
         if (vibrationChartResponse.payload.series.data.length > 0) {
           let data = vibrationChartResponse.payload.series.data.length - 1;
-          for (let i = data; i <= data; i++) {
+          for (let i = 0; i <= data; i++) {
             if (vibrationChartResponse.payload.series.data[i].value === 'abnormal') {
-              dataHave.push({
+              dataSet.push({
                 name: new Date(vibrationChartResponse.payload.series.data[i].name),
                 value: 3
               });
             } else if (vibrationChartResponse.payload.series.data[i].value === 'normal') {
-              dataHave.push({
+              dataSet.push({
                 name: new Date(vibrationChartResponse.payload.series.data[i].name),
                 value: 1
               });
             } else if (vibrationChartResponse.payload.series.data[i].value === 'warning') {
-              dataHave.push({
+              dataSet.push({
                 name: new Date(vibrationChartResponse.payload.series.data[i].name),
                 value: 2
               });
             }
           }
         }
-        var vibrationChartData = dataHave;
+        var vibrationChartData = [{
+          'name': vibrationChartResponse.payload.title.text,
+          'series': dataSet
+        }];
         Object.assign(this, { vibrationChartData });
       });
   }
@@ -234,7 +237,6 @@ export class DashboardComponent implements OnInit {
     this.fetchMoistureData();
     this.fetchThresholdData();
     this.fetchVibrationData();
-    
   }
 
 }

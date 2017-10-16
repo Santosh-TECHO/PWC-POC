@@ -72,9 +72,9 @@
                 </md-card-header>
                 <md-card-content>
                     <div class="chart-section">
-                        <ngx-charts-bar-vertical [view]="view" [scheme]="colorSchemeVibrationChart" [results]="vibrationChartData" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
-                        </ngx-charts-bar-vertical>
+                        <ngx-charts-area-chart [view]="view" [scheme]="colorSchemeVibrationChart" [results]="vibrationChartData" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)">
+                        </ngx-charts-area-chart>
                     </div>
                 </md-card-content>
             </md-card>
