@@ -13,36 +13,56 @@ export class DashboardService extends CommonService {
     super();
   }
 
-  temperatureService(): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/temperature?type=event&range=1800';
+  temperatureService(range, type): Observable<any> {
+    if (range === undefined || type === undefined) {
+      range = 3600;
+      type = 'event';
+    }
+    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/temperature?type=' + type + '&range=' + range;
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
       .map(res => res.json())
       .catch(this.handleError);
   }
-  moistureService(): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/moisture?type=event&range=1800';
+  moistureService(range, type): Observable<any> {
+    if (range === undefined || type === undefined) {
+      range = 3600;
+      type = 'event';
+    }
+    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/moisture?type=' + type + '&range=' + range;
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
       .map(res => res.json())
       .catch(this.handleError);
   }
-  oilTemperatureService(): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/oil-temperature?type=event&range=1800';
+  oilTemperatureService(range, type): Observable<any> {
+    if (range === undefined || type === undefined) {
+      range = 3600;
+      type = 'event';
+    }
+    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/oil-temperature?type=' + type + '&range=' + range;
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
       .map(res => res.json())
       .catch(this.handleError);
   }
-  thresholdService(): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/threshold?range=1800';
+  thresholdService(range, type): Observable<any> {
+    if (range === undefined || type === undefined) {
+      range = 86400;
+      type = 'normal';
+    }
+    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/threshold?type=' + type + '&range=' + range;
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
       .map(res => res.json())
       .catch(this.handleError);
   }
-  vibrationService(): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/vibration?range=1800';
+  vibrationService(range, type): Observable<any> {
+    if (range === undefined || type === undefined) {
+      range = 3600;
+      type = 'event';
+    }
+    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/vibration?type=' + type + '&range=' + range;
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
       .map(res => res.json())

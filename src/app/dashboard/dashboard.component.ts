@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { single, multi } from '../data';
 import { DashboardService } from './dashboard.service';
 
 @Component({
@@ -8,17 +7,17 @@ import { DashboardService } from './dashboard.service';
   styleUrls: ['./dashboard.component.css'],
   providers: [DashboardService]
 })
-export class DashboardComponent implements OnInit {
-  public intervals: Array<any>;
-  public statusList: Array<any>;
-  public temperatureChartResponse: any;
 
-  single: any[];
-  multi: any[];
+export class DashboardComponent implements OnInit {
+  public rangeList: Array<any>;
+  public stateList: Array<any>;
+  public range: any;
+  public state: any;
+
   multidata: any;
   visible: Boolean = false;
   view: any[] = [1200, 300];
-  viewPie: any[] = [400, 350];
+  viewPie: any[] = [600, 300];
 
   // options
   showXAxis = true;
@@ -41,10 +40,15 @@ export class DashboardComponent implements OnInit {
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
+
   colorSchemeTemperatureChart = {
     domain: ['#a95963']
   };
-  
+
+  colorSchemeSystemChart = {
+    domain: ['#A10A28', '#5AA454', '#ffa500']
+  };
+
   colorSchemeOilTemperatureChart = {
     domain: ['#7aa3e5']
   };
@@ -54,118 +58,176 @@ export class DashboardComponent implements OnInit {
   };
 
   colorSchemeVibrationChart = {
-    domain: ['#ffa500']
+    domain: ['#a8385d']
   };
 
   constructor(private _dashboardServiceInstance: DashboardService) {
-    this.intervals = ['15 Min', '30 Min', '1 Hour', '6 Hour', '1 Day'];
-    this.statusList = ['Normal', 'Warning', 'Critical'];
-    //Object.assign(this, { single, multi });
+    this.rangeList = [
+      {
+        'label': '15 Min',
+        'value': '900'
+      },
+      {
+        'label': '30 Min',
+        'value': '1800'
+      },
+      {
+        'label': '1 Hour',
+        'value': '3600'
+      },
+      {
+        'label': '6 Hour',
+        'value': '21600'
+      },
+      {
+        'label': '1 Day',
+        'value': '86400'
+      }
+    ];
+    this.stateList = [
+      {
+        'label': 'Normal',
+        'value': 'normal'
+      },
+      {
+        'label': 'Event',
+        'value': 'event'
+      }
+    ];
   }
 
-  ngOnInit() {
-    this._dashboardServiceInstance.temperatureService()
-      .subscribe((temperatureChartResponse) => {
 
-        var dataHave = []
+
+  ngOnInit() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    console.log('Range  :: ' + this.range);
+    console.log('State  :: ' + this.state);
+
+    // temperatureService
+    this._dashboardServiceInstance.temperatureService(this.range, this.state)
+      .subscribe((temperatureChartResponse) => {
+        var dataHave = [];
         if (temperatureChartResponse.payload.series.data.length > 0) {
-          console.log("----------kkkkdk---------" + temperatureChartResponse.payload.series.data.length)
-          let data = temperatureChartResponse.payload.series.data.length - 1
-          for (let i = 0; i <= data; i++) {
-            console.log(JSON.stringify(temperatureChartResponse.payload.series.data[i]) + "------helllo-------------");
+          let data = temperatureChartResponse.payload.series.data.length - 1;
+          for (let i = data-50; i <= data; i++) {
             dataHave.push({
               name: new Date(temperatureChartResponse.payload.series.data[i].name),
               value: temperatureChartResponse.payload.series.data[i].value
             });
           }
-          console.log(JSON.stringify(dataHave) + 'hello----------abc---=')
         }
-        var multi = [
-          {
-            'name': temperatureChartResponse.payload.title.text,
-            'series': dataHave
-          }
-        ]
-        this._dashboardServiceInstance.oilTemperatureService()
+        var temperatureChartData = [{
+          'name': temperatureChartResponse.payload.title.text,
+          'series': dataHave
+        }];
+
+        // oilTemperatureService
+        this._dashboardServiceInstance.oilTemperatureService(this.range, this.state)
           .subscribe((oiltemperatureChartResponse) => {
-            var dataHave = []
+            var dataHave = [];
             if (oiltemperatureChartResponse.payload.series.data.length > 0) {
-              console.log("----------kkkkdk---------" + oiltemperatureChartResponse.payload.series.data.length)
               let data = oiltemperatureChartResponse.payload.series.data.length - 1
               for (let i = 0; i <= data; i++) {
-                console.log(JSON.stringify(oiltemperatureChartResponse.payload.series.data[i]) + "------helllo-------------");
                 dataHave.push({
                   name: new Date(oiltemperatureChartResponse.payload.series.data[i].name),
                   value: oiltemperatureChartResponse.payload.series.data[i].value
-                })
+                });
               }
-              console.log(JSON.stringify(dataHave) + 'hello----------abc---=')
             }
-            var multiple = [
-              {
-                'name': oiltemperatureChartResponse.payload.title.text,
-                'series': dataHave
-              }
-            ]
-            this._dashboardServiceInstance.moistureService()
+            var oiltemperatureChartData = [{
+              'name': oiltemperatureChartResponse.payload.title.text,
+              'series': dataHave
+            }];
+
+            // moistureService
+            this._dashboardServiceInstance.moistureService(this.range, this.state)
               .subscribe((moistureChartResponse) => {
                 var dataHave = []
                 if (moistureChartResponse.payload.series.data.length > 0) {
-                  console.log("----------kkkkdk---------" + moistureChartResponse.payload.series.data.length)
-                  let data = moistureChartResponse.payload.series.data.length - 1
+                  let data = moistureChartResponse.payload.series.data.length - 1;
                   for (let i = 0; i <= data; i++) {
-                    console.log(JSON.stringify(moistureChartResponse.payload.series.data[i]) + "------helllo-------------");
                     dataHave.push({
                       name: new Date(moistureChartResponse.payload.series.data[i].name),
                       value: moistureChartResponse.payload.series.data[i].value
-                    })
+                    });
                   }
-                  console.log(JSON.stringify(dataHave) + 'hello----------abc---=')
                 }
-                var multidata = [
-                  {
-                    'name': moistureChartResponse.payload.title.text,
-                    'series': dataHave
-                  }
-                ]
-                this._dashboardServiceInstance.thresholdService()
-                  .subscribe((thresholdChartResponse) => {
-                    console.log(JSON.stringify(thresholdChartResponse) + 'hello-------------=')
-                    var singleData = thresholdChartResponse.payload.series.data;
+                var moistureChartData = [{
+                  'name': moistureChartResponse.payload.title.text,
+                  'series': dataHave
+                }];
 
-                    this._dashboardServiceInstance.vibrationService()
+                // thresholdService
+                this._dashboardServiceInstance.thresholdService(this.range, this.state)
+                  .subscribe((thresholdChartResponse) => {
+                    var dataHave = [];
+                    if (thresholdChartResponse.payload.series.data.length > 0) {
+                      let data = thresholdChartResponse.payload.series.data.length - 1;
+                      for (let i = 0; i <= data; i++) {
+                        if (thresholdChartResponse.payload.series.data[i].name === 'red') {
+                          dataHave.push({
+                            name: 'Critical',
+                            value: thresholdChartResponse.payload.series.data[i].value
+                          });
+                        } else if (thresholdChartResponse.payload.series.data[i].name === 'yellow') {
+                          dataHave.push({
+                            name: 'Warning',
+                            value: thresholdChartResponse.payload.series.data[i].value
+                          });
+                        } else if (thresholdChartResponse.payload.series.data[i].name === 'green') {
+                          dataHave.push({
+                            name: 'Normal',
+                            value: thresholdChartResponse.payload.series.data[i].value
+                          });
+                        }
+                      }
+                    }
+                    var thresholdChartData = dataHave;
+
+                    // vibrationService
+                    this._dashboardServiceInstance.vibrationService(this.range, this.state)
                       .subscribe((vibrationChartResponse) => {
                         this.visible = true;
-                        var dataHave = []
+                        var dataHave = [];
+                        console.log('Length :: ' + vibrationChartResponse.payload.series.data.length);
                         if (vibrationChartResponse.payload.series.data.length > 0) {
-                          console.log("----------kkkkdk---------" + vibrationChartResponse.payload.series.data.length)
-                          let data = vibrationChartResponse.payload.series.data.length - 1
-                          for (let i = 0; i <= data; i++) {
+                          let data = vibrationChartResponse.payload.series.data.length - 1;
+                          for (let i = data-50; i <= data; i++) {
                             if (vibrationChartResponse.payload.series.data[i].value === 'abnormal') {
-                              console.log(JSON.stringify(vibrationChartResponse.payload.series.data[i]) + "------helllo-------------");
                               dataHave.push({
                                 name: new Date(vibrationChartResponse.payload.series.data[i].name),
                                 value: 3
                               });
                             } else if (vibrationChartResponse.payload.series.data[i].value === 'normal') {
-                              console.log(JSON.stringify(vibrationChartResponse.payload.series.data[i]) + "------helllo-------------");
-                              dataHave.push({
-                                name: new Date(vibrationChartResponse.payload.series.data[i].name),
-                                value: 0
-                              });
-                            } else if (vibrationChartResponse.payload.series.data[i].value === 'warning') {
-                              console.log(JSON.stringify(vibrationChartResponse.payload.series.data[i]) + "------helllo-------------");
                               dataHave.push({
                                 name: new Date(vibrationChartResponse.payload.series.data[i].name),
                                 value: 1
                               });
+                            } else if (vibrationChartResponse.payload.series.data[i].value === 'warning') {
+                              dataHave.push({
+                                name: new Date(vibrationChartResponse.payload.series.data[i].name),
+                                value: 2
+                              });
                             }
-
                           }
-                          console.log(JSON.stringify(dataHave) + 'hello----------abc---=')
                         }
-                        var single = dataHave
-                        Object.assign(this, { singleData, single, multidata, multiple, multi });
+                        var vibrationChartData = dataHave;
+                        // console.log('temperatureChartData :: ' + JSON.stringify(temperatureChartData));
+                        // console.log('oiltemperatureChartData :: ' + JSON.stringify(oiltemperatureChartData));
+                        // console.log('moistureChartData :: ' + JSON.stringify(moistureChartData));
+                        // console.log('thresholdChartData :: ' + JSON.stringify(thresholdChartData));
+                        // console.log('vibrationChartData :: ' + JSON.stringify(vibrationChartData));
+                        // bind data to chart
+                        Object.assign(this, {
+                          temperatureChartData,
+                          oiltemperatureChartData,
+                          moistureChartData,
+                          thresholdChartData,
+                          vibrationChartData
+                        });
                       });
                   });
               });
