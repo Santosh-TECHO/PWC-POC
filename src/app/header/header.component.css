@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     padding: 15px;
-    border-bottom: 5px solid orange;
+    border-bottom: 5px solid #ffa500;
     height: 40px;
     z-index: 9999;
     background: #fff;
@@ -17,7 +17,7 @@
 
 .nav-option-container i {
     margin: 5px;
-    color: orange;
+    color: #ffa500;
     font-size: 50px;
 }
 
@@ -28,10 +28,10 @@
 .logo-container i {
     display: none;
     margin: 0 15px 0 5px;
-    color: orange;
+    color: #ffa500;
     font-size: 40px;
     height: 40px;
-    border: 1px solid orange;
+    border: 1px solid #ffa500;
     border-radius: 5px;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .side-bar-content:hover {
-    background: orange;
+    background: #ffa500;
     transition: all .8s;
 }
 

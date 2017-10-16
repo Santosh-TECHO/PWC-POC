@@ -19,6 +19,6 @@
 }
 
 .side-bar-content:hover {
-    background: orange;
+    background: #ffa500;
     transition: all .8s;
 }
