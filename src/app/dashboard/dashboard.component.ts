@@ -112,7 +112,8 @@ export class DashboardComponent implements OnInit {
         var dataHave = [];
         if (temperatureChartResponse.payload.series.data.length > 0) {
           let data = temperatureChartResponse.payload.series.data.length - 1;
-          for (let i = 0; i <= data; i++) {
+          console.log('Length :: ' + data);
+          for (let i = data; i <= data; i++) {
             dataHave.push({
               name: new Date(temperatureChartResponse.payload.series.data[i].name),
               value: temperatureChartResponse.payload.series.data[i].value
