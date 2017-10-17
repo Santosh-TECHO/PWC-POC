@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './dashboard.service';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -115,6 +117,14 @@ export class DashboardComponent implements OnInit {
     this.range = '15';
     this.state = 'normal';
     this.fetchData();
+    Observable.interval(500 * 60).subscribe(x => {
+      this.fetchTemperatureData();
+      this.fetchOilTemperatureData();
+      this.fetchMoistureData();
+      this.fetchThresholdData();
+      this.fetchVibrationData();
+    });
+  
   }
 
   fetchTemperatureData() {
@@ -281,5 +291,6 @@ export class DashboardComponent implements OnInit {
     this.fetchThresholdData();
     this.fetchVibrationData();
   }
+  
 
 }
