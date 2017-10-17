@@ -74,6 +74,13 @@ md-select {
     height: 350px;
 }
 
+.empty-data {
+    position: absolute;
+    top: 45%;
+    left: 40%;
+    transform: translate(-20%);
+}
+
 md-card-header {
     background: #ccc;
     border-radius: 5px 5px 0 0;

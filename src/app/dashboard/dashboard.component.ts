@@ -13,9 +13,15 @@ export class DashboardComponent implements OnInit {
   public stateList: Array<any>;
   public range: any;
   public state: any;
+  public emptyTemperatureData: Boolean = false;
+  public emptyOilTemperatureData: Boolean = false;
+  public emptyMoistureData: Boolean = false;
+  public emptyThresholdData: Boolean = false;
+  public emptyVibrationData: Boolean = false;
+  public visible: Boolean = false;
+
 
   multidata: any;
-  visible: Boolean = false;
   view: any[] = [1200, 300];
   viewPie: any[] = [600, 300];
 
@@ -46,7 +52,8 @@ export class DashboardComponent implements OnInit {
   };
 
   colorSchemeSystemChart = {
-    domain: ['#ffa500', '#A10A28', '#5AA454']
+    // domain: ['#ffa500', '#A10A28', '#5AA454']
+    domain: ['#7aa3e5', '#A10A28', '#5AA454']
   };
 
   colorSchemeOilTemperatureChart = {
@@ -65,23 +72,31 @@ export class DashboardComponent implements OnInit {
     this.rangeList = [
       {
         'label': '15 Min',
-        'value': '900'
+        'value': '15'
       },
       {
         'label': '30 Min',
-        'value': '1800'
+        'value': '30'
       },
       {
         'label': '1 Hour',
-        'value': '3600'
+        'value': '60'
       },
       {
         'label': '6 Hour',
-        'value': '21600'
+        'value': '360'
+      },
+      {
+        'label': '12 Hour',
+        'value': '720'
       },
       {
         'label': '1 Day',
-        'value': '86400'
+        'value': '1440'
+      },
+      {
+        'label': '2 Day',
+        'value': '2880'
       }
     ];
     this.stateList = [
@@ -96,10 +111,8 @@ export class DashboardComponent implements OnInit {
     ];
   }
 
-
-
   ngOnInit() {
-    this.range = '3600';
+    this.range = '15';
     this.state = 'normal';
     this.fetchData();
   }
@@ -109,8 +122,9 @@ export class DashboardComponent implements OnInit {
     this._dashboardServiceInstance.temperatureService(this.range, this.state)
       .subscribe((temperatureChartResponse) => {
         let dataSet = [];
-        console.log('Length :: ' + temperatureChartResponse.payload.series.data.length);
-        console.log('temperatureChartResponse :: ' + JSON.stringify(temperatureChartResponse));
+        let temperatureChartData = [];
+        // console.log('Length :: ' + temperatureChartResponse.payload.series.data.length);
+        // console.log('temperatureChartResponse :: ' + JSON.stringify(temperatureChartResponse));
         if (temperatureChartResponse.payload.series.data.length > 0) {
           let data = temperatureChartResponse.payload.series.data.length - 1;
           for (let i = 0; i <= data; i++) {
@@ -119,13 +133,15 @@ export class DashboardComponent implements OnInit {
               value: temperatureChartResponse.payload.series.data[i].value
             });
           }
+          temperatureChartData = [{
+            'name': temperatureChartResponse.payload.title.text,
+            'series': dataSet
+          }];
+          console.log('temperatureChartData ::: ' + JSON.stringify(temperatureChartData));
+          Object.assign(this, { temperatureChartData });
+        } else {
+          this.emptyTemperatureData = true;
         }
-        var temperatureChartData = [{
-          'name': temperatureChartResponse.payload.title.text,
-          'series': dataSet
-        }];
-        console.log('temperatureChartData ::: ' + JSON.stringify(temperatureChartData));
-        Object.assign(this, { temperatureChartData });
       });
   }
 
@@ -142,12 +158,15 @@ export class DashboardComponent implements OnInit {
               value: oiltemperatureChartResponse.payload.series.data[i].value
             });
           }
+          var oiltemperatureChartData = [{
+            'name': oiltemperatureChartResponse.payload.title.text,
+            'series': dataSet
+          }];
+          console.log('oiltemperatureChartData ::: ' + JSON.stringify(oiltemperatureChartData));
+          Object.assign(this, { oiltemperatureChartData });
+        } else {
+          this.emptyOilTemperatureData = true;
         }
-        var oiltemperatureChartData = [{
-          'name': oiltemperatureChartResponse.payload.title.text,
-          'series': dataSet
-        }];
-        Object.assign(this, { oiltemperatureChartData });
       });
   }
 
@@ -164,12 +183,16 @@ export class DashboardComponent implements OnInit {
               value: moistureChartResponse.payload.series.data[i].value
             });
           }
+
+          var moistureChartData = [{
+            'name': moistureChartResponse.payload.title.text,
+            'series': dataSet
+          }];
+          console.log('moistureChartData ::: ' + JSON.stringify(moistureChartData));
+          Object.assign(this, { moistureChartData });
+        } else {
+          this.emptyMoistureData = true;
         }
-        var moistureChartData = [{
-          'name': moistureChartResponse.payload.title.text,
-          'series': dataSet
-        }];
-        Object.assign(this, { moistureChartData });
       });
   }
 
@@ -177,7 +200,7 @@ export class DashboardComponent implements OnInit {
     // thresholdService
     this._dashboardServiceInstance.thresholdService(this.range, this.state)
       .subscribe((thresholdChartResponse) => {
-        console.log('thresholdChartResponse :: ' + JSON.stringify(thresholdChartResponse));
+        // console.log('thresholdChartResponse :: ' + JSON.stringify(thresholdChartResponse));
         let dataSet = [];
         if (thresholdChartResponse.payload.series.data.length > 0) {
           let data = thresholdChartResponse.payload.series.data.length - 1;
@@ -187,19 +210,25 @@ export class DashboardComponent implements OnInit {
               value: thresholdChartResponse.payload.series.data[i].value
             });
           }
+
+          var thresholdChartData = dataSet;
+          console.log('thresholdChartData ::: ' + JSON.stringify(thresholdChartData));
+          Object.assign(this, { thresholdChartData });
+        } else {
+          this.emptyThresholdData = true;
         }
-        var thresholdChartData = dataSet;
-        Object.assign(this, { thresholdChartData });
       });
   }
 
   fetchVibrationData() {
+
     // vibrationService
     this._dashboardServiceInstance.vibrationService(this.range, this.state)
       .subscribe((vibrationChartResponse) => {
-        this.visible = true;
         let dataSet = [];
-        console.log('Length :: ' + vibrationChartResponse.payload.series.data.length);
+        this.visible = true;
+
+        // console.log('Length :: ' + vibrationChartResponse.payload.series.data.length);
         if (vibrationChartResponse.payload.series.data.length > 0) {
           let data = vibrationChartResponse.payload.series.data.length - 1;
           for (let i = 0; i <= data; i++) {
@@ -220,16 +249,30 @@ export class DashboardComponent implements OnInit {
               });
             }
           }
+          var vibrationChartData = [{
+            'name': vibrationChartResponse.payload.title.text,
+            'series': dataSet
+          }];
+          console.log('vibrationChartData ::: ' + JSON.stringify(vibrationChartData));
+          Object.assign(this, { vibrationChartData });
+        } else {
+          this.emptyVibrationData = true;
         }
-        var vibrationChartData = [{
-          'name': vibrationChartResponse.payload.title.text,
-          'series': dataSet
-        }];
-        Object.assign(this, { vibrationChartData });
       });
   }
 
   fetchData() {
+    if (this.range === undefined || this.state === undefined) {
+      this.range = '15';
+      this.state = 'normal';
+    }
+    this.emptyTemperatureData = false;
+    this.emptyOilTemperatureData = false;
+    this.emptyMoistureData = false;
+    this.emptyThresholdData = false;
+    this.emptyVibrationData = false;
+    this.visible = false;
+
     console.log('Range  :: ' + this.range);
     console.log('State  :: ' + this.state);
     this.fetchTemperatureData();

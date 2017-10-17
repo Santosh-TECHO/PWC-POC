@@ -33,11 +33,15 @@
                     Temperature Performance
                 </md-card-header>
                 <md-card-content>
-                    <div class="chart-section">
+                    <div class="chart-section" *ngIf="!emptyTemperatureData">
                         <ngx-charts-area-chart [view]="view" [scheme]="colorSchemeTemperatureChart" [results]="temperatureChartData" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
                             [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)">
                         </ngx-charts-area-chart>
                     </div>
+                    <div class="empty-data" *ngIf="emptyTemperatureData">
+                        <h3>No Data Available</h3>
+                    </div>
+
                 </md-card-content>
             </md-card>
 
@@ -46,9 +50,12 @@
                     System Performance
                 </md-card-header>
                 <md-card-content>
-                    <div class="chart-section">
+                    <div class="chart-section" *ngIf="!emptyThresholdData">
                         <ngx-charts-pie-chart [view]="viewPie" [scheme]="colorSchemeSystemChart" [results]="thresholdChartData" [legend]="showLegend" [explodeSlices]="explodeSlices" [labels]="showLabels" [doughnut]="doughnut" [gradient]="gradient" (select)="onSelect($event)">
                         </ngx-charts-pie-chart>
+                    </div>
+                    <div class="empty-data" *ngIf="emptyThresholdData">
+                        <h3>No Data Available</h3>
                     </div>
                 </md-card-content>
             </md-card>
@@ -58,10 +65,13 @@
                     Oil Temperature Performance
                 </md-card-header>
                 <md-card-content>
-                    <div class="chart-section">
+                    <div class="chart-section" *ngIf="!emptyOilTemperatureData">
                         <ngx-charts-area-chart [view]="view" [scheme]="colorSchemeOilTemperatureChart" [results]="oiltemperatureChartData" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
                             [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)">
                         </ngx-charts-area-chart>
+                    </div>
+                    <div class="empty-data" *ngIf="emptyOilTemperatureData">
+                        <h3>No Data Available</h3>
                     </div>
                 </md-card-content>
             </md-card>
@@ -71,11 +81,15 @@
                     Vibration
                 </md-card-header>
                 <md-card-content>
-                    <div class="chart-section">
+                    <div class="chart-section" *ngIf="!emptyVibrationData">
                         <ngx-charts-area-chart [view]="view" [scheme]="colorSchemeVibrationChart" [results]="vibrationChartData" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
                             [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)">
                         </ngx-charts-area-chart>
                     </div>
+                    <div class="empty-data" *ngIf="emptyVibrationData">
+                        <h3>No Data Available</h3>
+                    </div>
+
                 </md-card-content>
             </md-card>
 
@@ -84,10 +98,13 @@
                     Oil Moisture Performance
                 </md-card-header>
                 <md-card-content>
-                    <div class="chart-section">
+                    <div class="chart-section" *ngIf="!emptyMoistureData">
                         <ngx-charts-area-chart [view]="view" [scheme]="colorSchemeMoistureChart" [results]="moistureChartData" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
                             [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)">
                         </ngx-charts-area-chart>
+                    </div>
+                    <div class="empty-data" *ngIf="emptyMoistureData">
+                        <h3>No Data Available</h3>
                     </div>
                 </md-card-content>
             </md-card>
