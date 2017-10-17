@@ -49,29 +49,21 @@ md-select {
     display: flex;
 }
 
-#temperature-chart {
+.broad-chart {
     width: 55%;
-    height: 350px;
+    height: 365px;
 }
 
-#oil-temp-chart {
-    width: 55%;
-    height: 350px;
-}
-
-#oil-mois-chart {
-    width: 55%;
-    height: 350px;
-}
-
-#system-chart {
+.narrow-chart {
     width: 40%;
-    height: 350px;
+    height: 365px;
 }
 
-#vibration-chart {
-    width: 40%;
-    height: 350px;
+.empty-data {
+    position: absolute;
+    top: 45%;
+    left: 40%;
+    transform: translate(-20%);
 }
 
 md-card-header {
@@ -82,6 +74,32 @@ md-card-header {
 
 md-card-content {
     padding: 10px 15px;
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #ffa500;
+    border-bottom: 16px solid #ffa500;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media only screen and (max-width: 976px) {
@@ -102,19 +120,7 @@ md-card-content {
 }
 
 @media only screen and (max-width: 1198px) {
-    #temperature-chart {
-        width: 100%;
-    }
-    #oil-temp-chart {
-        width: 100%;
-    }
-    #oil-mois-chart {
-        width: 100%;
-    }
-    #system-chart {
-        width: 100%;
-    }
-    #vibration-chart {
+    .full-width {
         width: 100%;
     }
 }
