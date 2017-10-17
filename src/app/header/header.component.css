@@ -49,6 +49,7 @@
 
 .active {
     top: 75px;
+    position: fixed;
 }
 
 .side-bar-content {
