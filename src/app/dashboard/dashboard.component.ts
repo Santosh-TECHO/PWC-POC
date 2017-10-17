@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
 
   colorSchemeSystemChart = {
     // domain: ['#ffa500', '#A10A28', '#5AA454']
-    domain: ['#7aa3e5', '#A10A28', '#5AA454']
+    domain: ['#7aa3e5', '#aae3f5', '#5AA454']
   };
 
   colorSchemeOilTemperatureChart = {
