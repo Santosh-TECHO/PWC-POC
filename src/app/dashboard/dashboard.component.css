@@ -49,29 +49,14 @@ md-select {
     display: flex;
 }
 
-#temperature-chart {
+.broad-chart {
     width: 55%;
-    height: 350px;
+    height: 365px;
 }
 
-#oil-temp-chart {
-    width: 55%;
-    height: 350px;
-}
-
-#oil-mois-chart {
-    width: 55%;
-    height: 350px;
-}
-
-#system-chart {
+.narrow-chart {
     width: 40%;
-    height: 350px;
-}
-
-#vibration-chart {
-    width: 40%;
-    height: 350px;
+    height: 365px;
 }
 
 .empty-data {
@@ -135,19 +120,7 @@ md-card-content {
 }
 
 @media only screen and (max-width: 1198px) {
-    #temperature-chart {
-        width: 100%;
-    }
-    #oil-temp-chart {
-        width: 100%;
-    }
-    #oil-mois-chart {
-        width: 100%;
-    }
-    #system-chart {
-        width: 100%;
-    }
-    #vibration-chart {
+    .full-width {
         width: 100%;
     }
 }
