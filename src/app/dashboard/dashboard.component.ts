@@ -131,6 +131,7 @@ export class DashboardComponent implements OnInit {
     // temperatureService
     this._dashboardServiceInstance.temperatureService(this.range, this.state)
       .subscribe((temperatureChartResponse) => {
+        this.fetchOilTemperatureData();
         let dataSet = [];
         let temperatureChartData = [];
         // console.log('Length :: ' + temperatureChartResponse.payload.series.data.length);
@@ -159,6 +160,7 @@ export class DashboardComponent implements OnInit {
     // oilTemperatureService
     this._dashboardServiceInstance.oilTemperatureService(this.range, this.state)
       .subscribe((oiltemperatureChartResponse) => {
+        this.fetchMoistureData();
         let dataSet = [];
         if (oiltemperatureChartResponse.payload.series.data.length > 0) {
           let data = oiltemperatureChartResponse.payload.series.data.length - 1
@@ -184,6 +186,7 @@ export class DashboardComponent implements OnInit {
     // moistureService
     this._dashboardServiceInstance.moistureService(this.range, this.state)
       .subscribe((moistureChartResponse) => {
+        this.fetchThresholdData();
         let dataSet = [];
         if (moistureChartResponse.payload.series.data.length > 0) {
           let data = moistureChartResponse.payload.series.data.length - 1;
@@ -210,6 +213,7 @@ export class DashboardComponent implements OnInit {
     // thresholdService
     this._dashboardServiceInstance.thresholdService(this.range, this.state)
       .subscribe((thresholdChartResponse) => {
+        this.fetchVibrationData();
         // console.log('thresholdChartResponse :: ' + JSON.stringify(thresholdChartResponse));
         let dataSet = [];
         if (thresholdChartResponse.payload.series.data.length > 0) {
@@ -237,7 +241,6 @@ export class DashboardComponent implements OnInit {
       .subscribe((vibrationChartResponse) => {
         let dataSet = [];
         this.visible = true;
-
         // console.log('Length :: ' + vibrationChartResponse.payload.series.data.length);
         if (vibrationChartResponse.payload.series.data.length > 0) {
           let data = vibrationChartResponse.payload.series.data.length - 1;
@@ -286,10 +289,6 @@ export class DashboardComponent implements OnInit {
     console.log('Range  :: ' + this.range);
     console.log('State  :: ' + this.state);
     this.fetchTemperatureData();
-    this.fetchOilTemperatureData();
-    this.fetchMoistureData();
-    this.fetchThresholdData();
-    this.fetchVibrationData();
   }
   
 
