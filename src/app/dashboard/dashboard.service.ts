@@ -14,35 +14,35 @@ export class DashboardService extends CommonService {
   }
 
   temperatureService(range, type): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/temperature?type=' + type + '&range=' + range;
+    let serviceUrl = this.serverUrl + 'cesc/chart/temperature?type=' + type + '&range=' + range;
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
       .map(res => res.json())
       .catch(this.handleError);
   }
   moistureService(range, type): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/moisture?type=' + type + '&range=' + range;
+    let serviceUrl = this.serverUrl + 'cesc/chart/moisture?type=' + type + '&range=' + range;
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
       .map(res => res.json())
       .catch(this.handleError);
   }
   oilTemperatureService(range, type): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/oil-temperature?type=' + type + '&range=' + range;
+    let serviceUrl = this.serverUrl + 'cesc/chart/oil-temperature?type=' + type + '&range=' + range;
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
       .map(res => res.json())
       .catch(this.handleError);
   }
   thresholdService(range, type): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/threshold?type=' + type + '&range=' + range;
+    let serviceUrl = this.serverUrl + 'cesc/chart/threshold?type=' + type + '&range=' + range;
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
       .map(res => res.json())
       .catch(this.handleError);
   }
   vibrationService(range, type): Observable<any> {
-    let serviceUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/cesc/chart/vibration?type=' + type + '&range=' + range;
+    let serviceUrl = this.serverUrl + 'cesc/chart/vibration?type=' + type + '&range=' + range;
     console.log('serviceUrl :: ' + serviceUrl);
     return this._http.get(serviceUrl, this.options)
       .map(res => res.json())

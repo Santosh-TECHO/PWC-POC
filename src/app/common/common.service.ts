@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 @Injectable()
 export class CommonService {
     responseBody: any;
-    serverUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/';
+    // serverUrl = 'http://cesc-922705458.ap-south-1.elb.amazonaws.com/';
+    serverUrl = 'http://cescnlb-50a7daa50eb135ee.elb.ap-south-1.amazonaws.com/';
     headers = new Headers({ 'Content-Type': 'application/json',
                             'Access-Control-Allow-Origin': '*'});
     options = new RequestOptions({ headers: this.headers });
